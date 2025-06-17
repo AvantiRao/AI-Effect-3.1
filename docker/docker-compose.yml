@@ -1,0 +1,78 @@
+version: : '3.8'
+version
+services: :
+services
+energy-generator: :
+energy-generator
+build: :
+build
+context: : . .
+context
+dockerfile
+dockerfile: : energy
+generator/Dockerfile
+energy- -generator/Dockerfile
+volumes: :
+volumes
+- -
+../src/energy ../src/energy- -generator
+/app
+generator: :/app
+- -
+/data
+../data ../data: :/data
+energy-analyzer: :
+energy-analyzer
+build: :
+build
+context: : . .
+context
+dockerfile
+dockerfile: : energy
+analyzer/Dockerfile
+energy- -analyzer/Dockerfile
+volumes: :
+volumes
+- -
+../src/energy ../src/energy- -analyzer
+/app
+analyzer: :/app
+- -
+/data
+../data ../data: :/data
+depends
+depends
+_
+_
+on: :
+on
+- - energy
+generator
+energy- -generator
+report-generator: :
+report-generator
+build: :
+build
+context: : . .
+context
+dockerfile
+dockerfile: : report
+generator/Dockerfile
+report- -generator/Dockerfile
+volumes: :
+volumes
+- -
+../src/report ../src/report- -generator
+/app
+generator: :/app
+- -
+/data
+../data ../data: :/data
+depends
+depends
+_
+_
+on: :
+on
+- - energy
+analyzerenergy- -analyzer
