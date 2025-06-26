@@ -1,7 +1,7 @@
 # Python should read the .csv file
 import csv
-#import os
 import json
+#import os
 #file_path = "input.csv"
 #print("Trying to open:", file_path)
 #print("Exists?", os.path.exists(file_path))
@@ -29,9 +29,10 @@ def csvConvert(csv_path, json_path):
             key = rows['timestamp']
             jsonData[key] = rows
             
-    with open(json_path, 'w', 'utf-8') as jsonfile:
+    with open(json_path, 'w', encoding='utf-8') as jsonfile:
         jsonfile.write(json.dumps(jsonData, indent=2))
-    print ("DataConverted")
+    print ("DataConverted and saved to", json_path)
+    print ("JSON Output:\n", json.dumps(jsonData, indent=2))
     
 csv_path = 'energy_data.csv'
 
