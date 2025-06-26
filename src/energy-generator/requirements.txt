@@ -1,1 +1,6 @@
-
+Container 1: Energy Data Generator
+What it does: Reads energy data from a file and outputs it in standard format 
+Input: CSV file with energy readings ( energy_data.csv ) Output: JSON data sent to Container 2 
+Your Implementation:
+Read CSV file with columns: timestamp, household_id, power_consumption, voltage, current
+Convert to JSON format. Send to Container 2 via simple interface
