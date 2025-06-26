@@ -1,0 +1,3 @@
+timestamp,household_id,power_consumption,voltage,current
+2024-01-15T10:30:00Z,H001,2.5,230.2,10.9
+2024-01-15T10:31:00Z,H001,2.7,229.8,11.2
