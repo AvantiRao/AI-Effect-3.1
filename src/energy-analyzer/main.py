@@ -35,19 +35,24 @@ def main():
         raw_data = json.load(infile)
 
     processed_data = []
+    skipped_rows = 0
 
     for row in raw_data:
         try:
             validate_row(row)             # 1: Check for valid structure
             processed = process_row(row)  # 2: Process logic
             processed_data.append(processed)
-        except Exception as e:
-             raise ValueError(f"Invalid or missing data")
 
-
+        except Exception as e:    
+            print(f"Skipping row due to invalid data: {e}")
+            skipped_rows += 1
+            print(f"No of Skipped rows:{skipped_rows}") 
+            continue  # Skip to the next row
+ 
     write_json(processed_data, OUTPUT_FILE)  # 3 Save to JSON file - output2.json
     print(json.dumps(processed_data, indent=2))
-    print(f"Container 2: Processed {len(processed_data)} records")
+    print(f"Container 2: Processed {len(processed_data)} records, and Skipped {skipped_rows} invalid rows")
     
+   
 if __name__ == "__main__":
     main()
