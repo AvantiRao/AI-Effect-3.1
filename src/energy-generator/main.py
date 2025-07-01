@@ -1,41 +1,29 @@
-# Python should read the .csv file
-import csv
-import json
-#import os
-#file_path = "input.csv"
-#print("Trying to open:", file_path)
-#print("Exists?", os.path.exists(file_path))
-#try:
- #   with open(file_path,"r") as file:
-  #      content = csv.reader(file)
-  #      for line in content:
-  #          if not line:
-   #             continue
-    #        print(line)
-#except FileNotFoundError:
- #   print("That file was not found, check file extension")
-#except PermissionError:
- #   print("You donot have permission to read that file ")
+import csv,json,os
 
+# Readsing the CSV file
+def read_energy_data():
+    csv_path = '../../data/energy_data.csv'
 
-def csvConvert(csv_path, json_path):
-    jsonData = {}
-    
-    with open(csv_path, encoding='utf-8') as csvfile:
-        
-        csvData = csv.DictReader(csvfile)
-        
-        for rows in csvData:
-            key = rows['timestamp']
-            jsonData[key] = rows
-            
-    with open(json_path, 'w', encoding='utf-8') as jsonfile:
-        jsonfile.write(json.dumps(jsonData, indent=2))
-    print ("DataConverted and saved to", json_path)
-    print ("JSON Output:\n", json.dumps(jsonData, indent=2))
-    
-csv_path = 'energy_data.csv'
+    # Checks if the CSV file exists , Shows an error and stop execution if file doesn't exist
+    if not os.path.exists(csv_path):
+        raise FileNotFoundError(f" The CSV file was not found at: {csv_path}")
+    # reading the csv file
+    with open(csv_path, 'r') as file:
+        reader = csv.DictReader(file)
+        data = list(reader)
+        return data
 
-json_path = 'energy_data.json'
+# Main function
+def main():
+    try:
+        data = read_energy_data()
+        # Save the data into a JSON file
+        with open('../../data/output1.json', 'w') as json_file:
+            json.dump(data, json_file, indent=2) 
+        print("Container 1: Generated", len(data), "records.")
+    except FileNotFoundError as e:
+        # Catch the error and print it
+        print(e)
 
-csvConvert(csv_path, json_path)
+if __name__ == "__main__":
+    main()

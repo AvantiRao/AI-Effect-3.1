@@ -2,11 +2,7 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Copy requirements and install dependencies
-COPY ../../src/energy-generator/requirements.txt .
-
-RUN pip install -r requirements.txt
-
-# Source code will be mounted as volume during development
-
+COPY src/energy-generator/requirements.txt .
+#COPY src/energy-generator/main.py .
+RUN pip install --no-cache-dir -r requirements.txt
 CMD ["python", "main.py"]

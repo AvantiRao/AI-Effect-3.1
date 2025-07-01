@@ -1,0 +1,146 @@
+[
+  {
+    "timestamp": "2025-06-01T10:00:00Z",
+    "household_id": "H001",
+    "power": 4.5,
+    "efficiency": 0.205,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2025-06-01T10:05:00Z",
+    "household_id": "H002",
+    "power": 6.2,
+    "efficiency": 0.245,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2025-06-01T10:10:00Z",
+    "household_id": "H003",
+    "power": 5.5,
+    "efficiency": 0.291,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2025-06-01T10:20:00Z",
+    "household_id": "H005",
+    "power": 7.0,
+    "efficiency": 0.304,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2025-06-01T10:25:00Z",
+    "household_id": "H006",
+    "power": 2.8,
+    "efficiency": 0.186,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2025-06-01T10:30:00Z",
+    "household_id": "H007",
+    "power": 4.9,
+    "efficiency": 0.242,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2025-06-01T10:35:00Z",
+    "household_id": "H008",
+    "power": 5.1,
+    "efficiency": 0.232,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2025-06-01T10:40:00Z",
+    "household_id": "H009",
+    "power": 6.0,
+    "efficiency": 0.237,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2025-06-01T10:45:00Z",
+    "household_id": "H010",
+    "power": 3.7,
+    "efficiency": 0.22,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2025-06-01T10:55:00Z",
+    "household_id": "H012",
+    "power": 5.6,
+    "efficiency": 0.243,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2025-06-01T11:00:00Z",
+    "household_id": "H013",
+    "power": 6.8,
+    "efficiency": 0.258,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2025-06-01T11:05:00Z",
+    "household_id": "H014",
+    "power": 2.5,
+    "efficiency": 0.17,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2025-06-01T11:10:00Z",
+    "household_id": "H015",
+    "power": 3.9,
+    "efficiency": 0.227,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2025-06-01T11:15:00Z",
+    "household_id": "H016",
+    "power": 5.3,
+    "efficiency": 0.236,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2025-06-01T11:20:00Z",
+    "household_id": "H017",
+    "power": 7.2,
+    "efficiency": 0.285,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2025-06-01T11:25:00Z",
+    "household_id": "H018",
+    "power": 4.4,
+    "efficiency": 0.222,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2025-06-01T11:30:00Z",
+    "household_id": "H019",
+    "power": 3.3,
+    "efficiency": 0.192,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2025-06-01T11:35:00Z",
+    "household_id": "H020",
+    "power": 6.5,
+    "efficiency": 0.283,
+    "status": "high_usage",
+    "anomaly_detected": true
+  }
+]
