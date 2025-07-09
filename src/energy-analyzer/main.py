@@ -1,58 +1,63 @@
-import json, os
+from generated import energy_pb2
 
-INPUT_FILE = '../../data/output1.json'
-OUTPUT_FILE = '../../data/output2.json'
-DATA_FIELDS = ["timestamp", "household_id", "power_consumption", "voltage", "current"]
+INPUT_PB = "data/output1.pb"
+OUTPUT_PB = "data/output2.pb"
 
-# Check fields and missing values if any
-def validate_row(row):
-    for field in DATA_FIELDS:
-        if field not in row or row[field] in [None, "", "null"]:
-            raise ValueError(f"Invalid or missing '{field}' in row: {row}")
+def analyze(record):
+    try:
+        if not record.timestamp or not record.household_id or \
+           not record.power_consumption or not record.voltage or not record.current:
+            raise ValueError("Missing required field")
+            
+        power = float(record.power_consumption)
+        voltage = float(record.voltage)
+        current = float(record.current)
 
-# Data Analysis-Logic
-def process_row(row):
-    power, voltage, current = map(float, (row["power_consumption"], row["voltage"], row["current"]))
-    return {
-        "timestamp": row["timestamp"],
-        "household_id": row["household_id"],
-        "power": power,
-        "efficiency": round((power / (voltage * current)) * 100, 3),
-        "status": "high_usage" if power > 5.0 else "normal",
-        "anomaly_detected": power > 5.0
-    }
+        efficiency = round((power / (voltage * current)) * 100, 3)
+        status = "high_usage" if power > 5.0 else "normal"
+        anomaly = power > 5.0
 
-#Processed data to output JSON
-def write_json(data, path):
-    with open(path, "w") as f:
-        json.dump(data, f, indent=2)
+        processed = energy_pb2.ProcessedEnergyReport(
+            timestamp=record.timestamp,
+            household_id=record.household_id,
+            power=power,
+            efficiency=efficiency,
+            status=status,
+            anomaly_detected=anomaly
+        )
+        return processed, True
+    except Exception:
+        return None, False
 
-#Main function
+
 def main():
-    if not os.path.exists(INPUT_FILE):
-        raise FileNotFoundError(f" Input file not found: {INPUT_FILE}")
-    with open(INPUT_FILE) as infile:
-        raw_data = json.load(infile)
+    # ✅ Read the RawDataReport message from .pb file
+    with open(INPUT_PB, "rb") as f:
+        report = energy_pb2.RawDataReport()
+        report.ParseFromString(f.read())
+        raw_records = report.raw_data
 
-    processed_data = []
-    skipped_rows = 0
+    processed_records = []
+    skipped = 0
 
-    for row in raw_data:
-        try:
-            validate_row(row)             # 1: Check for valid structure
-            processed = process_row(row)  # 2: Process logic
-            processed_data.append(processed)
+    # ✅ Analyze each raw record
+    for record in raw_records:
+        result, valid = analyze(record)
+        if valid:
+            processed_records.append(result)
+        else:
+            skipped += 1
 
-        except Exception as e:    
-            print(f"Skipping row due to invalid data: {e}")
-            skipped_rows += 1
-            print(f"No of Skipped rows:{skipped_rows}") 
-            continue  # Skip to the next row
- 
-    write_json(processed_data, OUTPUT_FILE)  # 3 Save to JSON file - output2.json
-    print(json.dumps(processed_data, indent=2))
-    print(f"Container 2: Processed {len(processed_data)} records, and Skipped {skipped_rows} invalid rows")
-    
-   
+    # ✅ Write ProcessedEnergyReport list into a ProcessedDataReport message
+    output_report = energy_pb2.ProcessedDataReport()
+    output_report.processed.extend(processed_records)
+    output_report.skipped_rows = skipped
+
+    with open(OUTPUT_PB, "wb") as f:
+        f.write(output_report.SerializeToString())
+
+    print(f"Processed {len(processed_records)} records, skipped {skipped}")
+
+
 if __name__ == "__main__":
     main()
