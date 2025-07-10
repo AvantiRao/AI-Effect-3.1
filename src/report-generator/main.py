@@ -1,29 +1,32 @@
-import json, csv, os
+import csv
+from generated import energy_pb2
 
-INPUT_FILE = "../../data/output2.json"
-OUTPUT_FILE = "../../data/energy_report.csv"
+INPUT_PB = "data/output2.pb"
+OUTPUT_CSV = "data/energy_report.csv"
 
 def main():
-    if not os.path.exists(INPUT_FILE):
-        print(f"Input file not found: {INPUT_FILE}")
-        return
+    # ✅ Load EnergyReport protobuf
+    with open(INPUT_PB, "rb") as f:
+        report = energy_pb2.EnergyReport()
+        report.ParseFromString(f.read())
 
-    with open(INPUT_FILE, "r") as infile:
-        data = json.load(infile)
+    processed = report.processed
 
-    fieldnames = ["timestamp", "household_id", "power", "efficiency", "status"]
-    with open(OUTPUT_FILE, "w", newline="") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in data:
-            writer.writerow({
-                "timestamp": row["timestamp"],
-                "household_id": row["household_id"],
-                "power": row["power"],
-                "efficiency": row["efficiency"],
-                "status": row["status"]
-            })
-    print(f" Container 3: Report generated with {len(data)} records.")
+    # ✅ Write to CSV
+    with open(OUTPUT_CSV, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["timestamp", "household_id", "power", "efficiency", "status", "anomaly_detected"])
+        for record in processed:
+            writer.writerow([
+                record.timestamp,
+                record.household_id,
+                record.power,
+                record.efficiency,
+                record.status,
+                record.anomaly_detected
+            ])
+
+    print(f"✅ Report written to {OUTPUT_CSV} with {len(processed)} records, skipped: {report.skipped_rows}")
 
 if __name__ == "__main__":
     main()
