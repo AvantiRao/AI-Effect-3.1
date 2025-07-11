@@ -1,0 +1,28 @@
+services:
+  generator:
+    build:
+      context: ../
+      dockerfile: docker/energy-generator/Dockerfile
+    volumes:
+      - ./data:/app/data
+    container_name: energy_generator
+
+  analyzer:
+    build:
+      context: ../
+      dockerfile: docker/energy-analyzer/Dockerfile
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - generator
+    container_name: energy_analyzer
+
+  reporter:
+    build:
+      context: ../
+      dockerfile: docker/energy-reporter/Dockerfile
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - analyzer
+    container_name: report_generator
