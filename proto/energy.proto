@@ -1,0 +1,33 @@
+syntax = "proto3";
+package energy;
+
+// Raw sensor data
+message RawEnergyData {
+  string timestamp = 1;
+  string household_id = 2;
+  string power_consumption = 3;
+  string voltage = 4;
+  string current = 5;
+}
+
+// Processed data
+message ProcessedEnergyReport {
+  string timestamp = 1;
+  string household_id = 2;
+  float power = 3;
+  float efficiency = 4;
+  string status = 5;
+  bool anomaly_detected = 6;
+}
+
+// 🔹 NEW: Container for raw records
+message RawDataReport {
+  repeated RawEnergyData raw_data = 1;
+}
+
+// 🔹 Container for processed records
+message ProcessedDataReport {
+  repeated ProcessedEnergyReport processed = 1;
+  int32 skipped_rows = 2;
+  repeated RawEnergyData raw_data = 3;
+}

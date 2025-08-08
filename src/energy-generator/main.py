@@ -1,29 +1,32 @@
-import csv,json,os
+import csv
+from generated import energy_pb2
 
-# Readsing the CSV file
-def read_energy_data():
-    csv_path = '../../data/energy_data.csv'
+INPUT_CSV = "data/energy_data.csv"
+OUTPUT_PB = "data/output1.pb"
 
-    # Checks if the CSV file exists , Shows an error and stop execution if file doesn't exist
-    if not os.path.exists(csv_path):
-        raise FileNotFoundError(f" The CSV file was not found at: {csv_path}")
-    # reading the csv file
-    with open(csv_path, 'r') as file:
-        reader = csv.DictReader(file)
-        data = list(reader)
-        return data
+def generate_raw_data():
+    raw_data = []
 
-# Main function
-def main():
-    try:
-        data = read_energy_data()
-        # Save the data into a JSON file
-        with open('../../data/output1.json', 'w') as json_file:
-            json.dump(data, json_file, indent=2) 
-        print("Container 1: Generated", len(data), "records.")
-    except FileNotFoundError as e:
-        # Catch the error and print it
-        print(e)
+    with open(INPUT_CSV, "r") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            record = energy_pb2.RawEnergyData()
+            record.timestamp = row["timestamp"]
+            record.household_id = row["household_id"]
+            record.power_consumption = row["power_consumption"]
+            record.voltage = row["voltage"]
+            record.current = row["current"]
+            raw_data.append(record)
+
+    # ✅ Wrap the raw records into RawDataReport
+    report = energy_pb2.RawDataReport()
+    report.raw_data.extend(raw_data)
+
+    # ✅ Write RawDataReport to .pb file
+    with open(OUTPUT_PB, "wb") as out:
+        out.write(report.SerializeToString())
+
+    print(f"✅ Wrote {len(raw_data)} records to {OUTPUT_PB}")
 
 if __name__ == "__main__":
-    main()
+    generate_raw_data()
