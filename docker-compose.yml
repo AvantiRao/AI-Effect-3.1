@@ -1,28 +1,35 @@
+name: ai-effect-3-1
+
 services:
   generator:
     build:
       context: .
       dockerfile: docker/energy-generator/Dockerfile
-    volumes:
-      - ./data:/app/data
-    container_name: energy_generator
+    ports: ["50051:50051"]
+    environment: ["LOG_LEVEL=INFO"]
+    volumes: ["./data:/app/data"]
+    restart: unless-stopped
 
   analyzer:
     build:
       context: .
-      dockerfile: docker/energy-analyzer/Dockerfile
-    volumes:
-      - ./data:/app/data
+      dockerfile: docker/energy-analyzer/Dockerfile  
+    ports: ["50052:50052"]
+    environment: ["LOG_LEVEL=INFO"]
+    volumes: ["./data:/app/data"]
     depends_on:
-      - generator
-    container_name: energy_analyzer
+      generator:
+        condition: service_healthy
+    restart: unless-stopped
 
   reporter:
     build:
       context: .
-      dockerfile: docker/energy-generator/Dockerfile
-    volumes:
-      - ./data:/app/data
+      dockerfile: docker/report-generator/Dockerfile  
+    ports: ["50053:50053"]
+    environment: ["LOG_LEVEL=INFO"]
+    volumes: ["./data:/app/data"]
     depends_on:
-      - analyzer
-    container_name: report_generator
+      analyzer:
+        condition: service_healthy
+    restart: unless-stopped
