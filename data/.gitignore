@@ -1,0 +1,34 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# macOS
+.DS_Store
+
+# Docker
+*.log
+*.pid
+
+# VSCode settings
+.vscode/
+
+# Data outputs
+data/*.pb
+data/*.csv
+data/*.json
+
+# Protobuf generated files - always regenerate from proto
+src/common/energy_pb2.py
+src/common/energy_pb2_grpc.py
