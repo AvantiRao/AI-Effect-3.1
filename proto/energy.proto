@@ -1,7 +1,7 @@
 syntax = "proto3";
 package energy;
 
-// Raw sensor data
+// ====== Existing messages ======
 message RawEnergyData {
   string timestamp = 1;
   string household_id = 2;
@@ -10,24 +10,58 @@ message RawEnergyData {
   string current = 5;
 }
 
-// Processed data
 message ProcessedEnergyReport {
   string timestamp = 1;
   string household_id = 2;
-  float power = 3;
-  float efficiency = 4;
+  float  power = 3;
+  float  efficiency = 4;
   string status = 5;
-  bool anomaly_detected = 6;
+  bool   anomaly_detected = 6;
 }
 
-// 🔹 NEW: Container for raw records
-message RawDataReport {
-  repeated RawEnergyData raw_data = 1;
-}
-
-// 🔹 Container for processed records
 message ProcessedDataReport {
   repeated ProcessedEnergyReport processed = 1;
   int32 skipped_rows = 2;
-  repeated RawEnergyData raw_data = 3;
+
+  // raw_data removed earlier
+  reserved 3;
+  reserved "raw_data";
+}
+
+// ====== New: service request/response wrappers ======
+message GenerateRequest {
+  int32 rows = 1; 
+}
+
+message GenerateResponse {
+  repeated RawEnergyData data = 1;
+}
+
+message AnalyzeRequest {
+  repeated RawEnergyData data = 1;
+}
+
+message AnalyzeResponse {
+  ProcessedDataReport report = 1;
+}
+
+message ReportRequest {
+  ProcessedDataReport report = 1;
+}
+
+message ReportResponse {
+  string html_path = 1; 
+}
+
+// ====== New: gRPC service definitions ======
+service EnergyGenerator {
+  rpc GenerateData (GenerateRequest) returns (GenerateResponse);
+}
+
+service EnergyAnalyzer {
+  rpc AnalyzeData (AnalyzeRequest) returns (AnalyzeResponse);
+}
+
+service ReportGenerator {
+  rpc GenerateReport (ReportRequest) returns (ReportResponse);
 }
