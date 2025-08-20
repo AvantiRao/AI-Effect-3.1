@@ -35,6 +35,10 @@ message GenerateRequest {
 
 message GenerateResponse {
   repeated RawEnergyData data = 1;
+  bool success = 2;
+  string message = 3;
+  ErrorCode code = 4;
+  string output_path = 5;
 }
 
 message AnalyzeRequest {
@@ -43,6 +47,9 @@ message AnalyzeRequest {
 
 message AnalyzeResponse {
   ProcessedDataReport report = 1;
+  bool success = 2;
+  string message = 3;
+  ErrorCode code = 4;
 }
 
 message ReportRequest {
@@ -51,7 +58,23 @@ message ReportRequest {
 
 message ReportResponse {
   string html_path = 1; 
+  bool success = 2;
+  string message = 3;
+  ErrorCode code = 4;
 }
+
+# ---- Error Codes ----
+enum ErrorCode {
+  UNKNOWN = 0;
+  INVALID_ARGUMENT = 1;
+  NOT_FOUND = 2;
+  PRECONDITION_FAILED = 3;
+  RESOURCE_EXHAUSTED = 4;
+  INTERNAL = 5;
+  UNAVAILABLE = 6;
+  TIMEOUT = 7;
+  PERMISSION_DENIED = 8;
+} 
 
 // ====== New: gRPC service definitions ======
 service EnergyGenerator {
