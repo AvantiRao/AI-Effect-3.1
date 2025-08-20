@@ -54,8 +54,8 @@ class EnergyAnalyzerServicer(energy_pb2_grpc.EnergyAnalyzerServicer):
                 )
 
                 # log.info(json.dumps({
-                    #    "rpc" : "GenerateData",
-                    #   "success" : True,
+                    #    "rpc" : "AnalyzeData",
+                    #    "success" : True,
                     #    "elapsed_ms": int((time.time()-t0)*1000),
                     #    "message": msg
                    # })
@@ -73,7 +73,7 @@ class EnergyAnalyzerServicer(energy_pb2_grpc.EnergyAnalyzerServicer):
                 )
             except FileNotFoundError as e:
                 log.warning(json.dumps({
-                    "rpc": "GenerateData",
+                    "rpc": "AnalyzeData",
                     "success": False,
                     "code": "NOT_FOUND",
                     "error": str(e)
@@ -87,7 +87,7 @@ class EnergyAnalyzerServicer(energy_pb2_grpc.EnergyAnalyzerServicer):
                 context.set_code(grpc.StatusCode.INTERNAL)
                 context.set_details(str(e))
                 log.error(json.dumps({
-                    "rpc": "GenerateData",
+                    "rpc": "AnalyzeData",
                     "success": False,
                     "code": "INTERNAL",
                     "error": str(e)
