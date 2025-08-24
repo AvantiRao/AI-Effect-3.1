@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message ExecuteRequest {
+  string input_file = 1;
+  string output_file = 2;
+}
+
+message ExecuteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+service ContainerExecutor {
+  rpc Execute(ExecuteRequest) returns (ExecuteResponse);
+}

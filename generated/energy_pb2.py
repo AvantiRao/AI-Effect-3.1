@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x65nergy.proto\x12\x06\x65nergy\"u\n\rRawEnergyData\x12\x11\n\ttimestamp\x18\x01 \x01(\t\x12\x14\n\x0chousehold_id\x18\x02 \x01(\t\x12\x19\n\x11power_consumption\x18\x03 \x01(\t\x12\x0f\n\x07voltage\x18\x04 \x01(\t\x12\x0f\n\x07\x63urrent\x18\x05 \x01(\t\"\x8d\x01\n\x15ProcessedEnergyReport\x12\x11\n\ttimestamp\x18\x01 \x01(\t\x12\x14\n\x0chousehold_id\x18\x02 \x01(\t\x12\r\n\x05power\x18\x03 \x01(\x02\x12\x12\n\nefficiency\x18\x04 \x01(\x02\x12\x0e\n\x06status\x18\x05 \x01(\t\x12\x18\n\x10\x61nomaly_detected\x18\x06 \x01(\x08\"m\n\x13ProcessedDataReport\x12\x30\n\tprocessed\x18\x01 \x03(\x0b\x32\x1d.energy.ProcessedEnergyReport\x12\x14\n\x0cskipped_rows\x18\x02 \x01(\x05J\x04\x08\x03\x10\x04R\x08raw_data\"\x1f\n\x0fGenerateRequest\x12\x0c\n\x04rows\x18\x01 \x01(\x05\"7\n\x10GenerateResponse\x12#\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x15.energy.RawEnergyData\"5\n\x0e\x41nalyzeRequest\x12#\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x15.energy.RawEnergyData\">\n\x0f\x41nalyzeResponse\x12+\n\x06report\x18\x01 \x01(\x0b\x32\x1b.energy.ProcessedDataReport\"<\n\rReportRequest\x12+\n\x06report\x18\x01 \x01(\x0b\x32\x1b.energy.ProcessedDataReport\"#\n\x0eReportResponse\x12\x11\n\thtml_path\x18\x01 \x01(\t2T\n\x0f\x45nergyGenerator\x12\x41\n\x0cGenerateData\x12\x17.energy.GenerateRequest\x1a\x18.energy.GenerateResponse2P\n\x0e\x45nergyAnalyzer\x12>\n\x0b\x41nalyzeData\x12\x16.energy.AnalyzeRequest\x1a\x17.energy.AnalyzeResponse2R\n\x0fReportGenerator\x12?\n\x0eGenerateReport\x12\x15.energy.ReportRequest\x1a\x16.energy.ReportResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x65nergy.proto\x12\x06\x65nergy\"u\n\rRawEnergyData\x12\x11\n\ttimestamp\x18\x01 \x01(\t\x12\x14\n\x0chousehold_id\x18\x02 \x01(\t\x12\x19\n\x11power_consumption\x18\x03 \x01(\t\x12\x0f\n\x07voltage\x18\x04 \x01(\t\x12\x0f\n\x07\x63urrent\x18\x05 \x01(\t\"\x8d\x01\n\x15ProcessedEnergyReport\x12\x11\n\ttimestamp\x18\x01 \x01(\t\x12\x14\n\x0chousehold_id\x18\x02 \x01(\t\x12\r\n\x05power\x18\x03 \x01(\x02\x12\x12\n\nefficiency\x18\x04 \x01(\x02\x12\x0e\n\x06status\x18\x05 \x01(\t\x12\x18\n\x10\x61nomaly_detected\x18\x06 \x01(\x08\"m\n\x13ProcessedDataReport\x12\x30\n\tprocessed\x18\x01 \x03(\x0b\x32\x1d.energy.ProcessedEnergyReport\x12\x14\n\x0cskipped_rows\x18\x02 \x01(\x05J\x04\x08\x03\x10\x04R\x08raw_data\"\x1f\n\x0fGenerateRequest\x12\x0c\n\x04rows\x18\x01 \x01(\x05\"7\n\x10GenerateResponse\x12#\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x15.energy.RawEnergyData\"5\n\x0e\x41nalyzeRequest\x12#\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x15.energy.RawEnergyData\">\n\x0f\x41nalyzeResponse\x12+\n\x06report\x18\x01 \x01(\x0b\x32\x1b.energy.ProcessedDataReport\"<\n\rReportRequest\x12+\n\x06report\x18\x01 \x01(\x0b\x32\x1b.energy.ProcessedDataReport\"#\n\x0eReportResponse\x12\x11\n\thtml_path\x18\x01 \x01(\t\"9\n\x0e\x45xecuteRequest\x12\x12\n\ninput_file\x18\x01 \x01(\t\x12\x13\n\x0boutput_file\x18\x02 \x01(\t\"3\n\x0f\x45xecuteResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t2T\n\x0f\x45nergyGenerator\x12\x41\n\x0cGenerateData\x12\x17.energy.GenerateRequest\x1a\x18.energy.GenerateResponse2P\n\x0e\x45nergyAnalyzer\x12>\n\x0b\x41nalyzeData\x12\x16.energy.AnalyzeRequest\x1a\x17.energy.AnalyzeResponse2R\n\x0fReportGenerator\x12?\n\x0eGenerateReport\x12\x15.energy.ReportRequest\x1a\x16.energy.ReportResponse2O\n\x11\x43ontainerExecutor\x12:\n\x07\x45xecute\x12\x16.energy.ExecuteRequest\x1a\x17.energy.ExecuteResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -49,10 +49,16 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_REPORTREQUEST']._serialized_end=667
   _globals['_REPORTRESPONSE']._serialized_start=669
   _globals['_REPORTRESPONSE']._serialized_end=704
-  _globals['_ENERGYGENERATOR']._serialized_start=706
-  _globals['_ENERGYGENERATOR']._serialized_end=790
-  _globals['_ENERGYANALYZER']._serialized_start=792
-  _globals['_ENERGYANALYZER']._serialized_end=872
-  _globals['_REPORTGENERATOR']._serialized_start=874
-  _globals['_REPORTGENERATOR']._serialized_end=956
+  _globals['_EXECUTEREQUEST']._serialized_start=706
+  _globals['_EXECUTEREQUEST']._serialized_end=763
+  _globals['_EXECUTERESPONSE']._serialized_start=765
+  _globals['_EXECUTERESPONSE']._serialized_end=816
+  _globals['_ENERGYGENERATOR']._serialized_start=818
+  _globals['_ENERGYGENERATOR']._serialized_end=902
+  _globals['_ENERGYANALYZER']._serialized_start=904
+  _globals['_ENERGYANALYZER']._serialized_end=984
+  _globals['_REPORTGENERATOR']._serialized_start=986
+  _globals['_REPORTGENERATOR']._serialized_end=1068
+  _globals['_CONTAINEREXECUTOR']._serialized_start=1070
+  _globals['_CONTAINEREXECUTOR']._serialized_end=1149
 # @@protoc_insertion_point(module_scope)
