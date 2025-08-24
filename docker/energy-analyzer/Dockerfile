@@ -10,6 +10,9 @@ COPY src/ ./src/
 COPY proto/ ./proto/
 COPY generated/energy_pb2.py ./generated/
 COPY generated/energy_pb2_grpc.py ./generated/
+COPY generated/energy_pipeline_pb2.py ./generated/
+COPY generated/energy_pipeline_pb2_grpc.py ./generated/
+
 
 EXPOSE 50052
 CMD ["python","-u","-m","src.energy_analyzer.server"]

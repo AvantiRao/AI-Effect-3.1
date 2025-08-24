@@ -7,7 +7,10 @@ services:
       dockerfile: docker/energy-generator/Dockerfile
     ports: ["50051:50051"]
     environment: ["LOG_LEVEL=INFO"]
-    volumes: ["./data:/app/data"]
+    #volumes: ["./data:/app/data"]
+    volumes:
+        - ./data:/data
+        - ./data:/app/data
     restart: unless-stopped
 
   analyzer:
@@ -16,7 +19,10 @@ services:
       dockerfile: docker/energy-analyzer/Dockerfile  
     ports: ["50052:50052"]
     environment: ["LOG_LEVEL=INFO"]
-    volumes: ["./data:/app/data"]
+    #volumes: ["./data:/app/data"]
+    volumes:
+        - ./data:/data
+        - ./data:/app/data
     depends_on:
       generator:
         condition: service_healthy
@@ -28,7 +34,10 @@ services:
       dockerfile: docker/report-generator/Dockerfile  
     ports: ["50053:50053"]
     environment: ["LOG_LEVEL=INFO"]
-    volumes: ["./data:/app/data"]
+    #volumes: ["./data:/app/data"]
+    volumes:
+        - ./data:/data
+        - ./data:/app/data
     depends_on:
       analyzer:
         condition: service_healthy
